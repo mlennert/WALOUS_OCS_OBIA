@@ -1,0 +1,42 @@
+#!/bin/bash -l
+
+#PBS -t 1
+#PBS -l nodes=1:ppn=8
+#PBS -l walltime=4:00:00
+#PBS -l mem=12gb
+#PBS -l file=20gb
+#PBS -o $HOME/WALOUS/JOBOUTPUTS/walous_segmentation_job.out
+#PBS -e $HOME/WALOUS/JOBOUTPUTS/walous_segmentation_job.err
+#PBS -N walous_segmentation
+
+module load GRASS
+
+LISTE_TUILES=${HOME}/WALOUS/tuiles_test_6151
+#LISTE_TUILES=${HOME}/WALOUS/tuiles_all.csv
+
+TUILE=$(sed -n ${PBS_ARRAYID}p ${LISTE_TUILES})
+PID=$$
+
+LOCAL_MAPSET=walous_temp_mapset_${TUILE}_${PID}
+LOCAL_GISDB=GRASSDATA_${TUILE}_${PID}
+
+mkdir ${TMPDIR}/${LOCAL_GISDB}
+grass76 -e -c epsg:31370 $TMPDIR/${LOCAL_GISDB}/tmplocation
+cd $TMPDIR/${LOCAL_GISDB}/tmplocation
+rm -r PERMANENT
+ln -s /projects/walous/GRASSDATA/WALOUS/PERMANENT .
+ln -s /projects/walous/GRASSDATA/WALOUS/walous_permanent .
+ln -s /projects/walous/GRASSDATA/WALOUS/walous_orthos .
+ln -s /projects/walous/GRASSDATA/WALOUS/walous_orthos_ind .
+ln -s /projects/walous/GRASSDATA/WALOUS/walous_mnh_ind .
+
+cd ${TMPDIR}
+echo "g.mapsets walous_permanent,walous_orthos" >> ${TMPDIR}/walous_segmentation_batch_job_${TUILE}.sh
+echo "python ${HOME}/WALOUS/SRC/walous_obia_tiles_data_creation.py ${TUILE}" >> ${TMPDIR}/walous_segmentation_batch_job_${TUILE}.sh
+chmod +x $TMPDIR/walous_segmentation_batch_job_${TUILE}.sh
+
+export GRASS_BATCH_JOB=$TMPDIR/walous_segmentation_batch_job_${TUILE}.sh
+grass76 -c $TMPDIR/${LOCAL_GISDB}/tmplocation/${LOCAL_MAPSET}
+unset GRASS_BATCH_JOB
+rm -r $TMPDIR/${LOCAL_GISDB}
+rm $TMPDIR/walous_segmentation_batch_job_${TUILE}.sh

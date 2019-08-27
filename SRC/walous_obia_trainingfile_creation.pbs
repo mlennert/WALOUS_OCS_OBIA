@@ -1,0 +1,16 @@
+#!/bin/bash -l
+
+#PBS -t 1-5
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=1:00:00
+#PBS -l mem=1gb
+#PBS -l file=2gb
+#PBS -o $HOME/WALOUS/JOBOUTPUTS/walous_trainingfile_job.out
+#PBS -e $HOME/WALOUS/JOBOUTPUTS/walous_trainingfile_job.err
+
+
+LISTE_STRATA=${HOME}/WALOUS/strata_still_todo
+
+STRATUM=$(sed -n ${PBS_ARRAYID}p ${LISTE_STRATA})
+
+python $HOME/WALOUS/SRC/walous_obia_trainingfile_creation.py ${STRATUM}

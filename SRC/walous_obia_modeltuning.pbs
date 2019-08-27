@@ -1,0 +1,38 @@
+#!/bin/bash -l
+
+#PBS -t 1-5
+#PBS -l nodes=1:ppn=10
+#PBS -l walltime=6:00:00
+#PBS -l mem=48gb
+#PBS -l file=20gb
+#PBS -o $HOME/WALOUS/JOBOUTPUTS/walous_tuning_job.out
+#PBS -e $HOME/WALOUS/JOBOUTPUTS/walous_tuning_job.err
+#PBS -N walous_tuning
+
+module load GRASS
+module load R/3.5.1-foss-2018b-Python-2.7.15
+
+LISTE_FILES=${HOME}/WALOUS/training_files_still_todo.csv
+#LISTE_FILES=${HOME}/WALOUS/training_files.csv
+
+FILE=$(sed -n ${PBS_ARRAYID}p ${LISTE_FILES})
+PID=$$
+
+TRAINING_DIR=/projects/walous/FINALRESULTS/TRAININGFILES 
+TRAINING_FILE=${TRAINING_DIR}/${FILE}
+MODEL_FILE_DIR=/projects/walous/FINALRESULTS/MODELS
+OUTPUTFILE_PREFIX=$(basename $FILE .csv)
+
+LOCAL_GISDB=GRASSDATA_${TUILE}_${PID}
+
+# Pour le tunage du modèle nous utilisons un petit échantillon
+# (max 1000 par classe), pour l'entraînement un échantillon
+# beaucoup plus grand (jusqu'à 100 000 par classe).
+echo "v.class.mlR -t tfile=${TRAINING_FILE} training_sample_size=50000 tuning_sample_size=1000 sep=comma tccol=tr_class max_features=50 classifiers=rf output_model_file=${MODEL_FILE_DIR}/${OUTPUTFILE_PREFIX}_model.rds vimpfile=${MODEL_FILE_DIR}/${OUTPUTFILE_PREFIX}_var_imp model_details=${MODEL_FILE_DIR}/${OUTPUTFILE_PREFIX}_details rscript=${MODEL_FILE_DIR}/${OUTPUTFILE_PREFIX}_rscript processes=10 --o" >> ${TMPDIR}/walous_tuning_batch_job_${TUILE}.sh
+chmod +x $TMPDIR/walous_tuning_batch_job_${TUILE}.sh
+
+export GRASS_BATCH_JOB=$TMPDIR/walous_tuning_batch_job_${TUILE}.sh
+grass76 -c epsg:31370 $TMPDIR/${LOCAL_GISDB}/tmplocation/
+unset GRASS_BATCH_JOB
+rm -r $TMPDIR/${LOCAL_GISDB}
+rm $TMPDIR/walous_tuning_batch_job_${TUILE}.sh
