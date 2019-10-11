@@ -801,7 +801,7 @@ if topoinfo['areas'] > 0:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=batiments_overlay_map,
                                                  column="a_%s_mean" % raster,
                                                  flags='g',
@@ -861,7 +861,7 @@ if topoinfo['areas'] > 0:
         gscript.verbose("Sélection ombres en %s." % str(total_time))
 
         start_time = time.time()
-        univar_stats = gscript.parse_command('v.db.univar2',
+        univar_stats = gscript.parse_command('v.db.univar',
                                              map_=batiments_overlay_map,
                                              column=overlay_ndvi_mean,
                                              where="NOT %s" % overlay_shadowcondition,
@@ -870,7 +870,7 @@ if topoinfo['areas'] > 0:
         average_mean = univar_stats['mean']
         average_stddev = univar_stats['stddev']
 
-        univar_stats = gscript.parse_command('v.db.univar2',
+        univar_stats = gscript.parse_command('v.db.univar',
                                              map_=batiments_overlay_map,
                                              column=overlay_ndvi_stddev,
                                              where="NOT %s" % overlay_shadowcondition,
@@ -976,7 +976,7 @@ if findinfo['name']:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=roads_overlay_map,
                                                  column="%s_mean" % raster,
                                                  flags='g',
@@ -1015,7 +1015,7 @@ if findinfo['name']:
             gscript.try_remove(sqltempfile)
 
 
-        univar_stats = gscript.parse_command('v.db.univar2',
+        univar_stats = gscript.parse_command('v.db.univar',
                                              map_=roads_overlay_map,
                                              column=ndvi_mean,
                                              where="NOT %s" % shadowcondition,
@@ -1024,7 +1024,7 @@ if findinfo['name']:
         average_mean = univar_stats['mean']
         average_stddev = univar_stats['stddev']
 
-        univar_stats = gscript.parse_command('v.db.univar2',
+        univar_stats = gscript.parse_command('v.db.univar',
                                              map_=roads_overlay_map,
                                              column=ndvi_stddev,
                                              where="NOT %s" % shadowcondition,
@@ -1119,7 +1119,7 @@ if findinfo['name']:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=rail_overlay_map,
                                                  column="%s_mean" % raster,
                                                  flags='g',
@@ -1158,7 +1158,7 @@ if findinfo['name']:
             gscript.try_remove(sqltempfile)
 
 
-        univar_stats = gscript.parse_command('v.db.univar2',
+        univar_stats = gscript.parse_command('v.db.univar',
                                              map_=rail_overlay_map,
                                              column=ndvi_mean,
                                              where="NOT %s" % shadowcondition,
@@ -1167,7 +1167,7 @@ if findinfo['name']:
         average_mean = univar_stats['mean']
         average_stddev = univar_stats['stddev']
 
-        univar_stats = gscript.parse_command('v.db.univar2',
+        univar_stats = gscript.parse_command('v.db.univar',
                                              map_=rail_overlay_map,
                                              column=ndvi_stddev,
                                              where="NOT %s" % shadowcondition,
@@ -1252,7 +1252,7 @@ if topoinfo['areas'] > 0:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=fields_overlay_map,
                                                  column="a_%s_mean" % raster,
                                                  flags='g',
@@ -1292,7 +1292,7 @@ if topoinfo['areas'] > 0:
 
         if int(shadowsegnb) > 0:
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=fields_overlay_map,
                                                  column=overlay_ndvi_mean,
                                                  where="%s" % overlay_shadowcondition,
@@ -1365,7 +1365,7 @@ if topoinfo['areas'] > 0:
 
         if int(shadowsegnb) > 0:
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=fields_overlay_map,
                                                  column=overlay_ndvi_mean,
                                                  where="NOT %s" % overlay_shadowcondition,
@@ -1374,7 +1374,7 @@ if topoinfo['areas'] > 0:
             average_mean = univar_stats['mean']
             average_stddev = univar_stats['stddev']
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=fields_overlay_map,
                                                  column=overlay_ndvi_stddev,
                                                  where="NOT %s" % overlay_shadowcondition,
@@ -1383,7 +1383,7 @@ if topoinfo['areas'] > 0:
             stddev_mean = univar_stats['mean']
             stddev_stddev = univar_stats['stddev']
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=fields_overlay_map,
                                                  column=overlay_mnh_mean,
                                                  where="NOT %s" % overlay_shadowcondition,
@@ -1577,7 +1577,7 @@ if topoinfo['areas'] > 0:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=quarry_overlay_map,
                                                  column="%s_mean" % raster,
                                                  flags='g',
@@ -1602,7 +1602,7 @@ if topoinfo['areas'] > 0:
 
         if int(shadowsegnb) > 0:
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=quarry_overlay_map,
                                                  column=ndvi_mean,
                                                  flags='g',
@@ -1611,7 +1611,7 @@ if topoinfo['areas'] > 0:
             ndvi_stats_stddev = univar_stats['stddev']
 
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=quarry_overlay_map,
                                                  column=ndwi_mean,
                                                  flags='g',
@@ -1707,7 +1707,7 @@ if topoinfo['areas'] > 0:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=coniferes_overlay_map,
                                                  column="%s_mean" % raster,
                                                  flags='g',
@@ -1764,7 +1764,7 @@ if topoinfo['areas'] > 0:
 
         if int(shadowsegnb) > 0:
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=coniferes_overlay_map,
                                                  column=ndvi_mean,
                                                  where="NOT %s" % shadowcondition,
@@ -1773,7 +1773,7 @@ if topoinfo['areas'] > 0:
             average_mean = univar_stats['mean']
             average_stddev = univar_stats['stddev']
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=coniferes_overlay_map,
                                                  column=mnh_mean,
                                                  where="NOT %s" % shadowcondition,
@@ -1783,7 +1783,7 @@ if topoinfo['areas'] > 0:
             mnh_stats_stddev = univar_stats['stddev']
 
             total_time = time.time() - start_time
-            gscript.verbose("v.db.univar2 en %s." % str(total_time))
+            gscript.verbose("v.db.univar en %s." % str(total_time))
 
             start_time = time.time()
             condition = "%s is NULL" % TRAINING_COLUMN
@@ -1878,7 +1878,7 @@ if topoinfo['areas'] > 0:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=feuillus_overlay_map,
                                                  column="%s_mean" % raster,
                                                  flags='g',
@@ -1936,7 +1936,7 @@ if topoinfo['areas'] > 0:
 
         if int(shadowsegnb) > 0:
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=feuillus_overlay_map,
                                                  column=ndvi_mean,
                                                  where="NOT %s" % shadowcondition,
@@ -1945,7 +1945,7 @@ if topoinfo['areas'] > 0:
             average_mean = univar_stats['mean']
             average_stddev = univar_stats['stddev']
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=feuillus_overlay_map,
                                                  column=mnh_mean,
                                                  where="NOT %s" % shadowcondition,
@@ -1955,7 +1955,7 @@ if topoinfo['areas'] > 0:
             mnh_stats_stddev = univar_stats['stddev']
 
             total_time = time.time() - start_time
-            gscript.verbose("v.db.univar2 en %s." % str(total_time))
+            gscript.verbose("v.db.univar en %s." % str(total_time))
 
             start_time = time.time()
             condition = "%s is NULL" % TRAINING_COLUMN
@@ -2051,7 +2051,7 @@ if findinfo['name']:
             raster = raster.split('@')[0]
             raster = raster.replace('.', '_')
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=water_overlay_map,
                                                  column="a_%s_mean" % raster,
                                                  flags='g',
@@ -2087,7 +2087,7 @@ if findinfo['name']:
 
         if int(shadowsegnb) > 0:
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=water_overlay_map,
                                                  column=overlay_ndwi_mean,
                                                  where="%s" % overlay_shadowcondition,
@@ -2131,7 +2131,7 @@ if findinfo['name']:
 
         if int(shadowsegnb) > 0:
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=water_overlay_map,
                                                  column=overlay_ndvi_mean,
                                                  where="NOT %s" % overlay_shadowcondition,
@@ -2140,7 +2140,7 @@ if findinfo['name']:
             ndvi_stats_mean = univar_stats['mean']
             ndvi_stats_stddev = univar_stats['stddev']
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=water_overlay_map,
                                                  column=overlay_ndwi_mean,
                                                  where="NOT %s" % overlay_shadowcondition,
@@ -2150,7 +2150,7 @@ if findinfo['name']:
             ndwi_stats_mean = univar_stats['mean']
             ndwi_stats_stddev = univar_stats['stddev']
 
-            univar_stats = gscript.parse_command('v.db.univar2',
+            univar_stats = gscript.parse_command('v.db.univar',
                                                  map_=water_overlay_map,
                                                  column=overlay_nir_mean,
                                                  where="NOT %s" % overlay_shadowcondition,
@@ -2208,7 +2208,7 @@ for raster in BANDS.values():
     raster = raster.split('@')[0]
     raster = raster.replace('.', '_')
 
-    univar_stats = gscript.parse_command('v.db.univar2',
+    univar_stats = gscript.parse_command('v.db.univar',
                                          map_=segs_tile_stats_map,
                                          column="%s_mean" % raster,
                                          flags='g',
