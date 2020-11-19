@@ -3,7 +3,7 @@ WALOUS_OCS_OBIA Licensing
 
 This file attempts to include all licenses that apply within WALOUS_OCS_OBIA (this program) source tree, in particular any that are supposed to be exposed to the end user for credit requirements for instance.
 
-WALOUS_OCS_OBIA is a software aiming at producing a land use map of Wallonia, based on multiple reference geospatial data as input and rule-based classification.
+WALOUS_OCS_OBIA is a software aiming at producing a land cover map of Wallonia, based on an object-based image analysis (OBIA) approach and machine learning classification algorithms.
 
 WALOUS_OCS_OBIA - Copyright (C) <2020> <Service Public de Wallonie (SWP), Belgique,
 					Institut Scientifique de Service Public (ISSeP), Belgique,
